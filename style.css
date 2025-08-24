@@ -1,89 +1,178 @@
-*{
+:root {
+    --primary-bg: #333;
+    --secondary-bg: #555;
+    --text-color: #fff;
+    --shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    --border-radius: 40px;
+    --chat-font-size: 1.5rem;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-html,body{
+
+html, body {
     height: 100%;
     width: 100%;
+    font-family: Arial, sans-serif;
 }
-.chat-container{
-    font-size: 2.5em;
+
+.chat-container {
     width: 100%;
-    height: 80%;
-    background-color: darkgray;
-    padding: 20px;
+    height: 80vh;
+    background-color: var(--primary-bg);
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 70px;
-    overflow: auto;
+    gap: 2rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
 }
-.user-chat-box{
-    width: 60%;
-    position: relative;
-    left: 40%;
-}
-.user-chat-area{
-    color: white;
-    width: 90%;
-    padding: 20px;
-    background-color: black;
-    border-radius: 40px 0px 40px 40px;
-    box-shadow: 2px 2px 10px black;
-}
-.ai-chat-box{
-    width: 60%;
-    position: relative;
 
+.user-chat-box, .ai-chat-box {
+    max-width: 60%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
 }
-.ai-chat-area{
-    color: white;
-    width: 90%;
-    padding: 20px;
-    background-color: grey;
-    position: relative;
-    left: 10%;
-    border-radius: 0px 40px 40px 40px;
-    box-shadow: 2px 2px 10px black;
+
+.user-chat-box {
+    margin-left: auto;
 }
-#userImage{
-    position:absolute;
-    right:0;
-    filter: drop-shadow(2px 2px 10px black);
+
+.ai-chat-box {
+    margin-right: auto;
 }
-#aiImage{
-    position: absolute;
-    filter: drop-shadow(2px 2px 10px black);
-    left: 0;
+
+.user-chat-area, .ai-chat-area {
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    font-size: var(--chat-font-size);
+    line-height: 1.5;
 }
-.prompt-area{
+
+.user-chat-area {
+    background-color: #000;
+    border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
+}
+
+.ai-chat-area {
+    background-color: var(--secondary-bg);
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
+}
+
+.chat-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: drop-shadow(var(--shadow));
+}
+
+.uploaded-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    display: block;
     width: 100%;
-    height: 20%;
-    background-color: darkgray;
+    object-fit: contain;
+}
+
+.prompt-area {
+    width: 100%;
+    height: 20vh;
+    background-color: var(--primary-bg);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0.5rem;
+    padding: 1rem;
 }
-.prompt-area input{
-    width: 50%;
-    height: 150px;
-    background-color: black;
+
+.image-preview {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prompt-area input {
+    flex: 1;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: #000;
     border: none;
-    border-radius: 50px;
-    padding: 29px;
-    color: white;
-    font-size: 2.3em;
+    border-radius: 25px;
+    color: var(--text-color);
+    font-size: 1.2rem;
 }
-.prompt-area button{
-    width: 150px;
-    height: 150px;
+
+.prompt-area button {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background-color: black;
-    box-shadow: 2px 2px 10px black;
+    background-color: #000;
+    border: none;
+    box-shadow: var(--shadow);
     cursor: pointer;
-    transition: all 0.1s;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.prompt-area button:hover{
-    background-color:grey;
+
+.prompt-area button:hover {
+    background-color: var(--secondary-bg);
+}
+
+.prompt-area button img {
+    width: 30px;
+    height: 30px;
+}
+
+.loading::after {
+    content: '...';
+    animation: dots 1s infinite;
+}
+
+@keyframes dots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+}
+
+@media (max-width: 600px) {
+    .user-chat-box, .ai-chat-box {
+        max-width: 80%;
+    }
+
+    .prompt-area input {
+        font-size: 1rem;
+    }
+
+    .chat-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .uploaded-image {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .image-preview {
+        max-width: 80px;
+        max-height: 80px;
+    }
 }
